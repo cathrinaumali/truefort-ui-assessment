@@ -1,0 +1,162 @@
+[
+  {
+    "userId": "john.doe",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 01:23:04 GMT"
+  },
+  {
+    "userId": "alice.smith",
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "email": "alice.smith@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 02:15:30 GMT"
+  },
+  {
+    "userId": "bob.jones",
+    "firstName": "Bob",
+    "lastName": "Jones",
+    "email": "bob.jones@gmail.com",
+    "status": "INITIATED",
+    "createdOn": "Thu Apr 14 2022 03:45:10 GMT"
+  },
+  {
+    "userId": "sara.wilson",
+    "firstName": "Sara",
+    "lastName": "Wilson",
+    "email": "sara.wilson@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 04:12:22 GMT"
+  },
+  {
+    "userId": "charlie.brown",
+    "firstName": "Charlie",
+    "lastName": "Brown",
+    "email": "charlie.brown@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 05:36:40 GMT"
+  },
+  {
+    "userId": "olivia.hill",
+    "firstName": "Olivia",
+    "lastName": "Hill",
+    "email": "olivia.hill@gmail.com",
+    "status": "INITIATED",
+    "createdOn": "Thu Apr 14 2022 06:09:55 GMT"
+  },
+  {
+    "userId": "michael.anderson",
+    "firstName": "Michael",
+    "lastName": "Anderson",
+    "email": "michael.anderson@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 07:18:12 GMT"
+  },
+  {
+    "userId": "emily.jenkins",
+    "firstName": "Emily",
+    "lastName": "Jenkins",
+    "email": "emily.jenkins@gmail.com",
+    "status": "INITIATED",
+    "createdOn": "Thu Apr 14 2022 08:30:01 GMT"
+  },
+  {
+    "userId": "william.harris",
+    "firstName": "William",
+    "lastName": "Harris",
+    "email": "william.harris@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 09:42:45 GMT"
+  },
+  {
+    "userId": "lily.carter",
+    "firstName": "Lily",
+    "lastName": "Carter",
+    "email": "lily.carter@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 10:55:20 GMT"
+  },
+  {
+    "userId": "david.martin",
+    "firstName": "David",
+    "lastName": "Martin",
+    "email": "david.martin@gmail.com",
+    "status": "INITIATED",
+    "createdOn": "Thu Apr 14 2022 11:37:05 GMT"
+  },
+  {
+    "userId": "grace.garcia",
+    "firstName": "Grace",
+    "lastName": "Garcia",
+    "email": "grace.garcia@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 12:46:30 GMT"
+  },
+  {
+    "userId": "eric.moore",
+    "firstName": "Eric",
+    "lastName": "Moore",
+    "email": "eric.moore@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 13:58:18 GMT"
+  },
+  {
+    "userId": "ava.lee",
+    "firstName": "Ava",
+    "lastName": "Lee",
+    "email": "ava.lee@gmail.com",
+    "status": "INITIATED",
+    "createdOn": "Thu Apr 14 2022 14:27:55 GMT"
+  },
+  {
+    "userId": "noah.perez",
+    "firstName": "Noah",
+    "lastName": "Perez",
+    "email": "noah.perez@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 15:40:02 GMT"
+  },
+  {
+    "userId": "sophia.cooper",
+    "firstName": "Sophia",
+    "lastName": "Cooper",
+    "email": "sophia.cooper@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 16:11:20 GMT"
+  },
+  {
+    "userId": "logan.ward",
+    "firstName": "Logan",
+    "lastName": "Ward",
+    "email": "logan.ward@gmail.com",
+    "status": "INITIATED",
+    "createdOn": "Thu Apr 14 2022 17:25:45 GMT"
+  },
+  {
+    "userId": "mia.baker",
+    "firstName": "Mia",
+    "lastName": "Baker",
+    "email": "mia.baker@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 18:37:30 GMT"
+  },
+  {
+    "userId": "jack.rivera",
+    "firstName": "Jack",
+    "lastName": "Rivera",
+    "email": "jack.rivera@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 19:42:10 GMT"
+  },
+  {
+    "userId": "ava.hill",
+    "firstName": "Ava",
+    "lastName": "Hill",
+    "email": "ava.hill@gmail.com",
+    "status": "INITIATED",
+    "createdOn": "Thu Apr 14 2022 20:58:45 GMT"
+  }
+]

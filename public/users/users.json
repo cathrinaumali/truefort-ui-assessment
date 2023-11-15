@@ -1,0 +1,26 @@
+[
+  {
+    "userId": "john.doe",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 01:23:04 GMT"
+  },
+  {
+    "userId": "alice.smith",
+    "firstName": "Alice",
+    "lastName": "Smith",
+    "email": "alice.smith@gmail.com",
+    "status": "REGISTERED",
+    "createdOn": "Thu Apr 14 2022 02:15:30 GMT"
+  },
+  {
+    "userId": "bob.jones",
+    "firstName": "Bob",
+    "lastName": "Jones",
+    "email": "bob.jones@gmail.com",
+    "status": "INITIATED",
+    "createdOn": "Thu Apr 14 2022 03:45:10 GMT"
+  }
+]
