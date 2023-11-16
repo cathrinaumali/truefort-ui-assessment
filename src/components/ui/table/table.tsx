@@ -134,7 +134,7 @@ const UiTable = <T extends UserData>({
                     sx={{
                       overflow: "hidden",
                       textOverflow: "ellipsis",
-                      whiteSace: "nowrap",
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {row[column.id] as React.ReactNode}
