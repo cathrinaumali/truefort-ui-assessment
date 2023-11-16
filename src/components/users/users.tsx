@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 // Components
-import UiTable from "../ui/table/table";
 import Divider from "@mui/material/Divider";
 import Sheet from "@mui/joy/Sheet";
 import FormControl from "@mui/joy/FormControl";
@@ -9,11 +8,14 @@ import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CachedIcon from "@mui/icons-material/Cached";
 import TextField from "@mui/material/TextField";
-import UserModal from "../userModal/userModal";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import UiTable from "../ui/table/table";
+import UserModal from "../userModal/userModal";
+import Snackbar from "../ui/snackbar/snackbar";
 // Types
 import { FormData, STATUS, UserData, ColumnProps } from "../../utils/types";
+import { AlertColor } from "@mui/material/Alert";
 // Styles
 import "./users.scss";
 
@@ -26,6 +28,14 @@ const UsersTable = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [mode, setMode] = useState<"add" | "edit">("add");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [snackBarMeta, setSnackBarMeta] = useState<{
+    message: string;
+    severity: AlertColor;
+  }>({
+    severity: "error",
+    message: "Failed!",
+  });
 
   const columns: ColumnProps<UserData>[] = [
     { id: "userId", label: "User ID", align: "left" },
@@ -50,6 +60,14 @@ const UsersTable = () => {
     }
   };
 
+  const callSnackBar = (message: string, severity: AlertColor) => {
+    setOpenSnackBar(true);
+    setSnackBarMeta({
+      message,
+      severity,
+    });
+  };
+
   const submitUserForm = (data: FormData) => {
     if (mode === "add") {
       const currentDate = new Date();
@@ -60,11 +78,14 @@ const UsersTable = () => {
         createdOn: formattedDate,
       };
       setUsersData((prev) => [...prev, newData]);
+      callSnackBar(`Successfully added new user`, "success");
     } else {
       const updateDAta = usersData?.map((user) => {
         return user.id === data.id ? { ...user, ...data } : user;
       });
       setUsersData(updateDAta);
+      setOpenSnackBar(true);
+      callSnackBar(`Successfully updated user`, "success");
     }
   };
 
@@ -104,7 +125,8 @@ const UsersTable = () => {
       );
       setUsersData(newUserData);
     } else {
-      alert("Please select users to delete");
+      setOpenSnackBar(true);
+      callSnackBar("Please select users to delete", "error");
     }
   };
 
@@ -143,9 +165,9 @@ const UsersTable = () => {
           onClick={() => {
             const selectedCount = selected?.length || 0;
             if (selectedCount === 0) {
-              alert("Please select a user to edit");
+              callSnackBar("Please select a user to edit", "error");
             } else if (selectedCount > 1) {
-              alert("Cannot edit multiple users");
+              callSnackBar("Cannot edit multiple users", "error");
             } else {
               onEdituserClick();
             }
@@ -217,6 +239,11 @@ const UsersTable = () => {
         isOpen={openAddModal}
         onFormSubmit={submitUserForm}
         selected={toEditUser}
+      />
+      <Snackbar
+        open={openSnackBar}
+        snackBarMeta={snackBarMeta}
+        setOpen={setOpenSnackBar}
       />
     </div>
   );
