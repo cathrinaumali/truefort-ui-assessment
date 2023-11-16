@@ -1,0 +1,21 @@
+.users-table {
+  &__title {
+    color: #ccc;
+  }
+  &__sheet {
+    padding: 1em;
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+
+    svg {
+      height: 1.2em;
+      width: 1.2em;
+      cursor: pointer;
+    }
+  }
+}
