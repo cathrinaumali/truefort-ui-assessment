@@ -10,6 +10,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CachedIcon from "@mui/icons-material/Cached";
 import TextField from "@mui/material/TextField";
 import UserModal from "../userModal/userModal";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 // Types
 import { FormData, STATUS, UserData, ColumnProps } from "../../utils/types";
 // Styles
@@ -21,6 +23,7 @@ const UsersTable = () => {
   const [selected, setSelected] = useState<string[]>([]);
   const [toEditUser, setToEditUser] = useState<UserData | null>(null);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [mode, setMode] = useState<"add" | "edit">("add");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -34,12 +37,14 @@ const UsersTable = () => {
   ];
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch("../../users/users.json");
       const jsonData = await response.json();
       setUsersData(jsonData);
       setOriginalData(jsonData);
       setSelected([]);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -47,10 +52,12 @@ const UsersTable = () => {
 
   const submitUserForm = (data: FormData) => {
     if (mode === "add") {
+      const currentDate = new Date();
+      const formattedDate = currentDate.toUTCString();
       const newData = {
         ...data,
         status: "REGISTERED" as STATUS,
-        createdOn: "Thu Apr 14 2022 10:55:20 GMT",
+        createdOn: formattedDate,
       };
       setUsersData((prev) => [...prev, newData]);
     } else {
@@ -74,8 +81,8 @@ const UsersTable = () => {
   };
 
   const resetSelected = () => {
-    setUsersData(originalData);
     setSearchTerm("");
+    fetchData();
   };
 
   const handleSelect = (userIDs: string[]) => {
@@ -187,17 +194,29 @@ const UsersTable = () => {
       <h1 className="users-table__title">Users Table</h1>
       <Sheet
         className="users-table__sheet"
-        sx={{ mb: 2, ml: 1, backgroundColor: "#404d59" }}
+        sx={{
+          mb: 2,
+          ml: 1,
+          backgroundColor: "#404d59",
+          margin: "0",
+          padding: "0",
+        }}
       >
         {renderHeaderToolBar()}
-        <UiTable data={usersData} columns={columns} onSelect={handleSelect} />
+        {isLoading ? (
+          <Box sx={{ display: "flex" }} className="users-table__loader">
+            <CircularProgress />
+          </Box>
+        ) : (
+          <UiTable data={usersData} columns={columns} onSelect={handleSelect} />
+        )}
       </Sheet>
       <UserModal
         mode={mode}
         onClose={() => setOpenAddModal(false)}
         isOpen={openAddModal}
         onFormSubmit={submitUserForm}
-        selected={toEditUser} //
+        selected={toEditUser}
       />
     </div>
   );

@@ -19,21 +19,6 @@ interface FormData {
   id?: string;
 }
 
-// interface EDIT_MODE {
-//   mode: "edit";
-//   selected: UserData | null;
-// }
-
-// interface ADD_MODE {
-//   mode: "add";
-// }
-
-// type EditUserProps = {
-//   onClose: () => void;
-//   isOpen: boolean;
-//   onFormSubmit: (formData: FormData) => void;
-// } & (EDIT_MODE | ADD_MODE);
-
 type CommonProps = {
   onClose: () => void;
   isOpen: boolean;
@@ -42,7 +27,7 @@ type CommonProps = {
 
 interface EditModeProps extends CommonProps {
   mode: "edit";
-  selected: UserData;
+  selected: UserData | null;
 }
 
 interface AddModeProps extends CommonProps {

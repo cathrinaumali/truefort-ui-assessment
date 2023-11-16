@@ -37,7 +37,6 @@ const UiTable = <T extends UserData>({
   columns,
   onSelect,
 }: UiTableProps<T>) => {
-  // const UiTable = <T,>({ data, columns, onSelect }: UiTableProps<T>) => {
   const [selected, setSelected] = React.useState<string[]>([]);
 
   const numSelected = selected.length;
@@ -115,6 +114,7 @@ const UiTable = <T extends UserData>({
               <TableRow
                 key={index}
                 onClick={(event) => handleClick(event, row.userId)}
+                sx={isItemSelected ? { backgroundColor: "#404d59" } : {}}
               >
                 <TableCell scope="row">
                   <Checkbox

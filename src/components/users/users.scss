@@ -6,7 +6,8 @@
     color: #ccc;
   }
   &__sheet {
-    padding: 1em;
+    margin: 0;
+    padding: 0;
   }
 
   &__toolbar {
@@ -23,6 +24,19 @@
 
     hr {
       height: 20px;
+    }
+  }
+
+  &__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    background: #6478833b;
+    color: #ccc;
+
+    svg circle {
+      stroke: #ccc;
     }
   }
 }
