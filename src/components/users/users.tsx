@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
+// Components
 import UiTable from "../ui/table/table";
-import { UserData, ColumnProps } from "../../utils/types";
-import Divider from "@mui/joy/Divider";
+import Divider from "@mui/material/Divider";
 import Sheet from "@mui/joy/Sheet";
 import FormControl from "@mui/joy/FormControl";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CachedIcon from "@mui/icons-material/Cached";
-import Textarea from "@mui/joy/Textarea";
+import TextField from "@mui/material/TextField";
 import UserModal from "../userModal/userModal";
 // Types
-import { FormData, STATUS } from "../../utils/types";
+import { FormData, STATUS, UserData, ColumnProps } from "../../utils/types";
 // Styles
 import "./users.scss";
 
 const UsersTable = () => {
+  const [originalData, setOriginalData] = useState<UserData[]>([]);
   const [usersData, setUsersData] = useState<UserData[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [toEditUser, setToEditUser] = useState<UserData | null>(null);
   const [openAddModal, setOpenAddModal] = useState<boolean>(false);
   const [mode, setMode] = useState<"add" | "edit">("add");
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const columns: ColumnProps<UserData>[] = [
     { id: "userId", label: "User ID", align: "left" },
@@ -36,6 +38,7 @@ const UsersTable = () => {
       const response = await fetch("../../users/users.json");
       const jsonData = await response.json();
       setUsersData(jsonData);
+      setOriginalData(jsonData);
       setSelected([]);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -70,7 +73,10 @@ const UsersTable = () => {
     }
   };
 
-  const resetSelected = () => {};
+  const resetSelected = () => {
+    setUsersData(originalData);
+    setSearchTerm("");
+  };
 
   const handleSelect = (userIDs: string[]) => {
     setSelected(userIDs);
@@ -86,7 +92,6 @@ const UsersTable = () => {
 
   const handleDelete = () => {
     if (selected?.length) {
-      console.log(selected);
       const newUserData = usersData?.filter(
         (user) => !selected.includes(user.userId)
       );
@@ -94,6 +99,21 @@ const UsersTable = () => {
     } else {
       alert("Please select users to delete");
     }
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = e.target.value;
+    const term = searchTerm.toLowerCase();
+
+    setSearchTerm(searchTerm);
+
+    const searchResults = originalData.filter((item) => {
+      return Object.values(item).some((value) => {
+        const stringValue = String(value).toLowerCase();
+        return stringValue.includes(term);
+      });
+    });
+    setUsersData(searchTerm ? searchResults : originalData);
   };
 
   useEffect(() => {
@@ -125,14 +145,38 @@ const UsersTable = () => {
           }}
         />
         <Divider orientation="vertical" sx={dividerColor} />
-        <CachedIcon sx={iconColor} onClick={fetchData} />
+        <CachedIcon sx={iconColor} onClick={resetSelected} />
         <Divider orientation="vertical" sx={dividerColor} />
         <DeleteIcon sx={iconColor} onClick={handleDelete} />
         <Divider orientation="vertical" sx={dividerColor} />
-        <Textarea
-          name="Outlined"
+
+        <TextField
+          type="text"
+          name="search"
           placeholder="Grid Filter"
           variant="outlined"
+          onChange={handleSearch}
+          value={searchTerm}
+          size="small"
+          sx={{
+            "& .MuiInputBase-input": {
+              color: "white",
+            },
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "white",
+              },
+              "&:hover fieldset": {
+                borderColor: "white",
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "white",
+              },
+            },
+            "& label.Mui-focused": {
+              color: "white",
+            },
+          }}
         />
       </FormControl>
     );

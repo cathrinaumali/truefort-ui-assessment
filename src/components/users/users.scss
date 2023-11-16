@@ -1,4 +1,7 @@
 .users-table {
+  &__container {
+    font-family: "Montserrat", sans-serif;
+  }
   &__title {
     color: #ccc;
   }
@@ -13,9 +16,13 @@
     gap: 10px;
 
     svg {
-      height: 1.2em;
-      width: 1.2em;
+      height: 1.4em;
+      width: 1.4em;
       cursor: pointer;
+    }
+
+    hr {
+      height: 20px;
     }
   }
 }

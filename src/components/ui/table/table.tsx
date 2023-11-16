@@ -1,4 +1,5 @@
 import * as React from "react";
+// Components
 import Table from "@mui/joy/Table";
 import Checkbox from "@mui/joy/Checkbox";
 import TableBody from "@mui/material/TableBody";
@@ -7,12 +8,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
-import { UiTableProps } from "../../../utils/types";
+// Types
+import { UiTableProps, UserData } from "../../../utils/types";
+// Styles
+import "./table.scss";
 
 const tableStyles = {
   "--Table-headerUnderlineThickness": "1px",
-  "& thead th:nth-child(1)": { width: "3%" },
+  "& thead th:nth-child(1)": { width: "38px" },
   "& thead th:nth-child(7)": { width: "25%" },
   "& th": { color: "#97a3b0" },
   "& td": { color: "#97a3b0" },
@@ -20,14 +23,21 @@ const tableStyles = {
     borderColor: "#97a3b0",
     color: "#97a3b0",
     backgroundColor: "#404d59",
+    padding: "8px",
   },
   "& tbody td": {
     borderColor: "#97a3b0",
     color: "#97a3b0",
+    padding: "8px",
   },
+  fontFamily: "Montserrat, sans-serif",
 };
-
-const UiTable = <T,>({ data, columns, onSelect }: UiTableProps<T>) => {
+const UiTable = <T extends UserData>({
+  data,
+  columns,
+  onSelect,
+}: UiTableProps<T>) => {
+  // const UiTable = <T,>({ data, columns, onSelect }: UiTableProps<T>) => {
   const [selected, setSelected] = React.useState<string[]>([]);
 
   const numSelected = selected.length;
@@ -36,7 +46,6 @@ const UiTable = <T,>({ data, columns, onSelect }: UiTableProps<T>) => {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      console.log(data);
       const newSelected: string[] = data.map((n) => String(n[columns[0].id]));
       setSelected(newSelected);
       onSelect?.(newSelected);
@@ -74,6 +83,7 @@ const UiTable = <T,>({ data, columns, onSelect }: UiTableProps<T>) => {
         stickyFooter={false}
         stickyHeader={false}
         sx={tableStyles}
+        className={"app-table"}
       >
         <TableHead sx={{ backgroundColor: "#404d59" }}>
           <TableRow>
@@ -118,8 +128,16 @@ const UiTable = <T,>({ data, columns, onSelect }: UiTableProps<T>) => {
                   />
                 </TableCell>
                 {columns.map((column, index) => (
-                  <TableCell key={index} align={column.align}>
-                    {row[column.id]}
+                  <TableCell
+                    key={index}
+                    align={column.align}
+                    sx={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSace: "nowrap",
+                    }}
+                  >
+                    {row[column.id] as React.ReactNode}
                   </TableCell>
                 ))}
               </TableRow>

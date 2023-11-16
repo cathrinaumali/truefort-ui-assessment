@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-
+// Components
 import Modal from "../ui/modal/modal";
 import Button from "@mui/joy/Button";
 import FormControl from "@mui/joy/FormControl";
@@ -19,30 +19,49 @@ interface FormData {
   id?: string;
 }
 
-interface EDIT_MODE {
-  mode: "edit";
-  selected: UserData | null;
-}
+// interface EDIT_MODE {
+//   mode: "edit";
+//   selected: UserData | null;
+// }
 
-interface ADD_MODE {
-  mode: "add";
-}
+// interface ADD_MODE {
+//   mode: "add";
+// }
 
-type EditUserProps = {
+// type EditUserProps = {
+//   onClose: () => void;
+//   isOpen: boolean;
+//   onFormSubmit: (formData: FormData) => void;
+// } & (EDIT_MODE | ADD_MODE);
+
+type CommonProps = {
   onClose: () => void;
   isOpen: boolean;
   onFormSubmit: (formData: FormData) => void;
-} & (EDIT_MODE | ADD_MODE);
+};
 
-const EditUser = ({
-  isOpen,
-  mode,
-  selected,
-  onClose,
-  onFormSubmit,
-}: EditUserProps) => {
+interface EditModeProps extends CommonProps {
+  mode: "edit";
+  selected: UserData;
+}
+
+interface AddModeProps extends CommonProps {
+  mode: "add";
+}
+
+type EditUserProps = EditModeProps | AddModeProps;
+
+const EditUser = (props: EditUserProps) => {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const { userId, firstName, lastName, email, id } = selected || {};
+  const { isOpen, mode, onClose, onFormSubmit } = props;
+
+  let selecteValues = null;
+
+  if (mode === "edit") {
+    const { selected } = props as EditModeProps;
+    selecteValues = selected;
+  }
+  const { userId, firstName, lastName, email, id } = selecteValues || {};
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,8 +70,6 @@ const EditUser = ({
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
-
-    console.log({ userId, firstName, lastName, email, id });
     onFormSubmit({ userId, firstName, lastName, email, id });
     onClose();
   };
