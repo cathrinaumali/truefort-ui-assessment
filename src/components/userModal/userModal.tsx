@@ -51,11 +51,24 @@ const EditUser = (props: EditUserProps) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(formRef.current!);
-    const userId = formData.get("userId") as string;
-    const firstName = formData.get("firstName") as string;
-    const lastName = formData.get("lastName") as string;
-    const email = formData.get("email") as string;
-    onFormSubmit({ userId, firstName, lastName, email, id });
+    const newUserId = formData.get("userId") as string;
+    const newFirstName = formData.get("firstName") as string;
+    const newLastName = formData.get("lastName") as string;
+    const newEmail = formData.get("email") as string;
+    if (
+      newUserId !== userId ||
+      newFirstName !== firstName ||
+      newLastName !== lastName ||
+      newEmail !== email
+    ) {
+      onFormSubmit({
+        userId: newUserId,
+        firstName: newFirstName,
+        lastName: newLastName,
+        email: newEmail,
+        id,
+      });
+    }
     onClose();
   };
 

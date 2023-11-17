@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 // Components
 import Divider from "@mui/material/Divider";
 import Sheet from "@mui/joy/Sheet";
@@ -20,6 +20,8 @@ import { AlertColor } from "@mui/material/Alert";
 import "./users.scss";
 
 const UsersTable = () => {
+  const selectionRef = useRef<{ resetSelection: () => void } | null>(null);
+  // States
   const [originalData, setOriginalData] = useState<UserData[]>([]);
   const [usersData, setUsersData] = useState<UserData[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
@@ -36,6 +38,13 @@ const UsersTable = () => {
     severity: "error",
     message: "Failed!",
   });
+
+  // Function to reset selection from outside the table component
+  const handleResetSelection = () => {
+    if (selectionRef.current) {
+      selectionRef.current.resetSelection();
+    }
+  };
 
   const columns: ColumnProps<UserData>[] = [
     { id: "userId", label: "User ID", align: "left" },
@@ -85,6 +94,8 @@ const UsersTable = () => {
       });
       setUsersData(updateDAta);
       setOpenSnackBar(true);
+      setToEditUser(null);
+      handleResetSelection();
       callSnackBar(`Successfully updated user`, "success");
     }
   };
@@ -124,6 +135,7 @@ const UsersTable = () => {
         (user) => !selected.includes(user.userId)
       );
       setUsersData(newUserData);
+      handleResetSelection();
     } else {
       setOpenSnackBar(true);
       callSnackBar("Please select users to delete", "error");
@@ -164,7 +176,7 @@ const UsersTable = () => {
           sx={iconColor}
           onClick={() => {
             const selectedCount = selected?.length || 0;
-            if (selectedCount === 0) {
+            if (selectedCount === 0 || toEditUser === null) {
               callSnackBar("Please select a user to edit", "error");
             } else if (selectedCount > 1) {
               callSnackBar("Cannot edit multiple users", "error");
@@ -230,7 +242,12 @@ const UsersTable = () => {
             <CircularProgress />
           </Box>
         ) : (
-          <UiTable data={usersData} columns={columns} onSelect={handleSelect} />
+          <UiTable
+            data={usersData}
+            columns={columns}
+            onSelect={handleSelect}
+            selectionRef={selectionRef}
+          />
         )}
       </Sheet>
       <UserModal

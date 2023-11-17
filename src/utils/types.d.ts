@@ -19,6 +19,7 @@ export interface UiTableProps<T> {
   data: T[];
   columns: ColumnProps<T>[];
   onSelect: (selected: string[]) => void;
+  selectionRef?: React.MutableRefObject<{ resetSelection: () => void } | null>;
 }
 
 export interface FormData {

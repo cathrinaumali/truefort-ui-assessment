@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 // Components
 import Table from "@mui/joy/Table";
 import Checkbox from "@mui/joy/Checkbox";
@@ -36,12 +36,21 @@ const UiTable = <T extends UserData>({
   data,
   columns,
   onSelect,
+  selectionRef,
 }: UiTableProps<T>) => {
   const [selected, setSelected] = React.useState<string[]>([]);
 
   const numSelected = selected.length;
   const rowCount = data.length;
   const isSelected = (userId: string) => selected.indexOf(userId) !== -1;
+
+  useEffect(() => {
+    if (selectionRef) {
+      selectionRef.current = {
+        resetSelection: () => setSelected([]),
+      };
+    }
+  }, [selectionRef]);
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
